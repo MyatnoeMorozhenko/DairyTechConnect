@@ -33,3 +33,8 @@ async def settings(callback_query: types.CallbackQuery):
     if callback_query.data == 'back':
         await callback_query.message.edit_caption(f"Добрый день, {callback_query.from_user.full_name}\!\n\nРады приветсвовать в нашем онлайн бизнес сообществе **DairyTech Connect** для специалистов молочной отрасли\.\n\n • Отраслевое сообщество для делового общения\n • Площадка для обмена новостями, экспертизой, аналитикой индустрии\n • Профильные онлайн\-мероприятия\n\n||Перейти на страницу сообщества можно, нажав на кнопку DairyTech Connect или по [ссылке](https://app.dairytech-connect.com/event/1099/feed)||",
             reply_markup=keyb_client, parse_mode='MarkdownV2')
+
+if __name__ == '__main__':
+    executor.start_polling(dp, skip_updates=True)
+
+
