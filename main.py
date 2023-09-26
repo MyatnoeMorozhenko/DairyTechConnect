@@ -10,7 +10,13 @@ from client_keyboard import keyb_client01
 load_dotenv()
 bot = Bot(os.getenv('TOKEN'))
 dp = Dispatcher(bot=bot)
+DB_URL = str(os.getenv('DATABASE_URL'))
 
+### БАЗА ДАННЫХ
+async def on_startup(_):
+    await db.db_start(DB_URL)
+    print('База создана!')
+    
 @dp.message_handler(commands=['start'])
 async def buy(msg: types.Message):
     with open('DairyTech.jpeg', 'rb') as photo:
