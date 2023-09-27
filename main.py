@@ -25,7 +25,7 @@ async def buy(msg: types.Message):
                          parse_mode='MarkdownV2',photo=photo,
                          reply_markup=keyb_client)
     user_id = msg.from_user
-    user = db_object.execute(f"SELECT id FROM users WHERE tg_id == {user_id}")
+    user = db_object.execute(f"SELECT id FROM users WHERE tg_id = {user_id}")
     result = db_object.fetchone()
     
     if not result:
