@@ -31,7 +31,7 @@ async def buy(msg: types.Message):
     result = db_object.fetchone()
     
     if not result:
-        db_object.execute("INSERT INTO users01 (id, username) VALUES (%s, %s)", (user_id, user_name))
+        db_object.execute("INSERT INTO users01 (id, username) VALUES (%s, %s)", (user_id, username))
         db.commit()
 
 #WebApp handler
