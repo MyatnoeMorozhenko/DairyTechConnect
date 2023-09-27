@@ -20,7 +20,7 @@ db_object = db.cursor()
 photo = open('DairyTech.jpeg', 'rb')
 
 @dp.message_handler(commands=['start'])
-async def buy(msg: types.Message):
+async def start(msg: types.Message):
     user_id = msg.from_user.id
     username = msg.from_user.username
     with open('DairyTech.jpeg', 'rb') as photo:
@@ -34,6 +34,16 @@ async def buy(msg: types.Message):
     if not result:
         db_object.execute("INSERT INTO users (id, username) VALUES (%s, %s)", (user_id, username))
         db.commit()
+#Рассылка
+
+@dp.message_handler(commands=['send'])
+async def send(msg: types.Message):
+    if msg.from_user.id == 5863593481:
+        text = msg.text[6:]
+        users = db.result()
+        for row in users:
+                await bot.send_message(row[0], text)
+        await bot.send_message(msg.from_user.id, "Успешная рассылка")
 
 #WebApp handler
 
