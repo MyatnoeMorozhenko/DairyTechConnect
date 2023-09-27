@@ -1,4 +1,4 @@
-import psycopg2
+"""import psycopg2
 import PGDATABASE, PGHOST, PGPASSWORD,PGPORT, PGUSER
 
 db = psycopg2.connect(host = PGHOST, port = PGPORT, user = PGUSER, password = PGPASSWORD, database = PGDATABASE)
@@ -19,3 +19,4 @@ async def cmd_start_db(user_id):
     db.commit()
     cur.close()
     db.close()
+"""
