@@ -13,16 +13,18 @@ dp = Dispatcher(bot=bot)
 DB_URL = str(os.getenv('DATABASE_URL'))
 
 ### БАЗА ДАННЫХ
-async def on_startup(_):
-    await db.db_start(DB_URL)
-    print('База создана!')
-    
+db = psycopg2.connect(DB_URL, sslmode='require')
+db_object = db.cursor()
+
 @dp.message_handler(commands=['start'])
 async def buy(msg: types.Message):
-    with open('DairyTech.jpeg', 'rb') as photo:
-        await bot.send_photo(msg.from_user.id, caption = f"Добрый день, {msg.from_user.full_name}\!\n\nРады приветсвовать в нашем онлайн бизнес сообществе **DairyTech Connect** для специалистов молочной отрасли\.\n\n • Отраслевое сообщество для делового общения\n • Площадка для обмена новостями, экспертизой, аналитикой индустрии\n • Профильные онлайн\-мероприятия\n\n||Перейти на страницу сообщества можно, нажав на кнопку DairyTech Connect или по [ссылке](https://app.dairytech-connect.com/event/1099/feed)||",
+    await bot.send_photo(msg.from_user.id, caption = f"Добрый день, {msg.from_user.full_name}\!\n\nРады приветсвовать в нашем онлайн бизнес сообществе **DairyTech Connect** для специалистов молочной отрасли\.\n\n • Отраслевое сообщество для делового общения\n • Площадка для обмена новостями, экспертизой, аналитикой индустрии\n • Профильные онлайн\-мероприятия\n\n||Перейти на страницу сообщества можно, нажав на кнопку DairyTech Connect или по [ссылке](https://app.dairytech-connect.com/event/1099/feed)||",
                          parse_mode='MarkdownV2',photo=photo,
                          reply_markup=keyb_client)
+    user_id = msg.from_user
+    user = db_object.execute("SELECT * FROM users WHERE tg_id == {key}".format(key=user_id)).fetchone()
+    if not user:
+        db_object.execute("INSERT INTO users (tg_id) VALUES ({key})".format(key=user_id))
 
 #WebApp handler
 
