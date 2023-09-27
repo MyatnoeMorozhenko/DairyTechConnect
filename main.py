@@ -17,6 +17,8 @@ DB_URL = os.getenv('DATABASE_URL')
 db = psycopg2.connect(DB_URL, sslmode='require')
 db_object = db.cursor()
 
+photo = open('DairyTech.jpeg', 'rb')
+
 @dp.message_handler(commands=['start'])
 async def buy(msg: types.Message):
     await bot.send_photo(msg.from_user.id, caption = f"Добрый день, {msg.from_user.full_name}\!\n\nРады приветсвовать в нашем онлайн бизнес сообществе **DairyTech Connect** для специалистов молочной отрасли\.\n\n • Отраслевое сообщество для делового общения\n • Площадка для обмена новостями, экспертизой, аналитикой индустрии\n • Профильные онлайн\-мероприятия\n\n||Перейти на страницу сообщества можно, нажав на кнопку DairyTech Connect или по [ссылке](https://app.dairytech-connect.com/event/1099/feed)||",
