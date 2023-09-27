@@ -25,9 +25,12 @@ async def buy(msg: types.Message):
                          parse_mode='MarkdownV2',photo=photo,
                          reply_markup=keyb_client)
     user_id = msg.from_user
-    user = db_object.execute("SELECT * FROM users WHERE tg_id == {key}".format(key=user_id)).fetchone()
-    if not user:
-        db_object.execute("INSERT INTO users (tg_id) VALUES ({key})".format(key=user_id))
+    user = db_object.execute(f"SELECT id FROM users WHERE tg_id == {user_id}")
+    result = db_object.fetchone()
+    
+    if not result:
+        db_object.execute("INSERT INTO users (tg_id, username) VALUES (%s, %s)", (user_id, user_name))
+        db.commit()
 
 #WebApp handler
 
