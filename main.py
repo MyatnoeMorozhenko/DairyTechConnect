@@ -21,16 +21,17 @@ photo = open('DairyTech.jpeg', 'rb')
 
 @dp.message_handler(commands=['start'])
 async def buy(msg: types.Message):
+    user_id = msg.from_user
     with open('DairyTech.jpeg', 'rb') as photo:
         await bot.send_photo(msg.from_user.id, caption = f"Добрый день, {msg.from_user.full_name}\!\n\nРады приветсвовать в нашем онлайн бизнес сообществе **DairyTech Connect** для специалистов молочной отрасли\.\n\n • Отраслевое сообщество для делового общения\n • Площадка для обмена новостями, экспертизой, аналитикой индустрии\n • Профильные онлайн\-мероприятия\n\n||Перейти на страницу сообщества можно, нажав на кнопку DairyTech Connect или по [ссылке](https://app.dairytech-connect.com/event/1099/feed)||",
                          parse_mode='MarkdownV2',photo=photo,
                          reply_markup=keyb_client)
-    id = msg.from_user
-    db_object.execute(f"SELECT id FROM users01 WHERE id = {id}")
+    
+    db_object.execute(f"SELECT id FROM users01 WHERE id = {user_id}")
     result = db_object.fetchone()
     
     if not result:
-        db_object.execute("INSERT INTO users01 (id, username) VALUES (%s, %s)", (id, user_name))
+        db_object.execute("INSERT INTO users01 (id, username) VALUES (%s, %s)", (user_id, user_name))
         db.commit()
 
 #WebApp handler
