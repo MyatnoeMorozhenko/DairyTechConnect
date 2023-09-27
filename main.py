@@ -1,4 +1,5 @@
 import os
+import psycopg2
 import logging
 from dotenv import load_dotenv
 
@@ -10,7 +11,7 @@ from client_keyboard import keyb_client01
 load_dotenv()
 bot = Bot(os.getenv('TOKEN'))
 dp = Dispatcher(bot=bot)
-DB_URL = str(os.getenv('DATABASE_URL'))
+DB_URL = os.getenv('DATABASE_URL')
 
 ### БАЗА ДАННЫХ
 db = psycopg2.connect(DB_URL, sslmode='require')
