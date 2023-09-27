@@ -41,8 +41,8 @@ async def start(msg: types.Message):
 async def send(msg: types.Message):
     if msg.from_user.id == 5863593481:
         text = msg.text[6:]
-        db.cursor.execute(f"SELECT id FROM users WHERE id = {user_id}")
-        result1 = db.cursor.execute.fetchall()
+        db_object.execute(f"SELECT id FROM users WHERE id = {user_id}")
+        result1 = db_object.execute.fetchall()
         for row in result1:
                 await bot.send_message(row[0], text)
         await bot.send_message(msg.from_user.id, "Успешная рассылка")
