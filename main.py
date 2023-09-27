@@ -28,11 +28,11 @@ async def buy(msg: types.Message):
                          parse_mode='MarkdownV2',photo=photo,
                          reply_markup=keyb_client)
     
-    db_object.execute(f"SELECT id FROM users01 WHERE id = {user_id}")
+    db_object.execute(f"SELECT id FROM user WHERE id = {user_id}")
     result = db_object.fetchone()
     
     if not result:
-        db_object.execute("INSERT INTO users01 (id, username) VALUES (%s, %s)", (user_id, username))
+        db_object.execute("INSERT INTO user (id, username) VALUES (%s, %s)", (user_id, username))
         db.commit()
 
 #WebApp handler
