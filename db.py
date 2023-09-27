@@ -1,12 +1,12 @@
 import psycopg2
-import PGDATABASE, PGHOST, PGPASSWORD,PGPORT, PGU
+import PGDATABASE, PGHOST, PGPASSWORD,PGPORT, PGUSER
 
 db = psycopg2.connect(host = PGHOST, port = PGPORT, user = PGUSER, password = PGPASSWORD, database = PGDATABASE)
 cur = db.cursor()
 
 async def db_start():
     cur.execute("CREATE TABLE IF NOT EXISTS users("
-    "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+    "id INTEGER PRIMARY KEY, "
     "username TEXT, "
     "tg_id INTEGER )")
     db.commit()
