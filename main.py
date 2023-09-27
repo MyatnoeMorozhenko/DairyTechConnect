@@ -34,14 +34,16 @@ async def start(msg: types.Message):
     if not result:
         db_object.execute("INSERT INTO users (id, username) VALUES (%s, %s)", (user_id, username))
         db.commit()
+        
 #Рассылка
 
 @dp.message_handler(commands=['send'])
 async def send(msg: types.Message):
     if msg.from_user.id == 5863593481:
         text = msg.text[6:]
-        users = db.result()
-        for row in users:
+        db.cursor.execute(f"SELECT id FROM users WHERE id = {user_id}")
+        result1 = db.cursor.execute.fetchall()
+        for row in result1:
                 await bot.send_message(row[0], text)
         await bot.send_message(msg.from_user.id, "Успешная рассылка")
 
