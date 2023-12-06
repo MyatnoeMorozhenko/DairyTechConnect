@@ -13,7 +13,7 @@ bot = Bot(os.getenv('TOKEN'))
 dp = Dispatcher(bot=bot)
 DB_URL = os.getenv('DATABASE_URL')
 
-### БАЗА ДАННЫХ
+### To connect with DATABASE
 db = psycopg2.connect(DB_URL, sslmode='require')
 db_object = db.cursor()
 
@@ -35,7 +35,7 @@ async def start(msg: types.Message):
         db_object.execute("INSERT INTO users (id, username) VALUES (%s, %s)", (user_id, username))
         db.commit()
         
-#Рассылка
+#Launch of messages distribution
 
 @dp.message_handler(commands=['send'])
 async def send(msg: types.Message):
